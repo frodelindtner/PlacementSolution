@@ -1,6 +1,6 @@
 ﻿namespace PlacementTableApp.Models.DTOs
 {
-    public class Team(int id, string season, string city, string name, string division, string league)
+    public class TeamDTO(int id, string season, string city, string name, string division, string league)
     {
         public int Id { get; } = id;
         public string Season { get; set; } = season;

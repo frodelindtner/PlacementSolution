@@ -12,7 +12,7 @@ namespace PlacementTableApp.Services
 
         }
 
-        public async Task<List<Standing>> GetStandingsAsync(string league = null, string division = null)
+        public async Task<List<StandingDTO>> GetStandingsAsync(string league = null, string division = null)
         {
             var json = await ReadJsonFileAsync();
 

@@ -1,6 +1,6 @@
 ﻿namespace PlacementTableApp.Models.DTOs
 {
-    public class Standing(string season, string seasonType, int teamId, string city, string name, 
+    public class StandingDTO(string season, string seasonType, int teamId, string city, string name, 
                             string league, string division, int wins, int losses, int nightWins)
     {
         public string Season { get; } = season;

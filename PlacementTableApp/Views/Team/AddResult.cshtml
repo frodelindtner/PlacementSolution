@@ -1,0 +1,20 @@
+@model PlacementTableApp.Models.DTOs.ResultDTO
+
+@{
+    ViewData["Title"] = "Add Result";
+}
+
+<h1>Add Result for @ViewBag.TeamName</h1>
+
+<form asp-action="AddResult" method="post">
+    <input asp-for="TeamId" type="hidden" />
+    <div class="form-group">
+        <label asp-for="Wins"></label>
+        <input class="form-control" asp-for="Wins" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Losses"></label>
+        <input class="form-control" asp-for="Losses" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Result</button>
+</form>

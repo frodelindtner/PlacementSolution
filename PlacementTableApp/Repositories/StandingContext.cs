@@ -1,15 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using PlacementTableApp.Storage.Entities;
 
-public class BloggingContext : DbContext
+public class StandingContext : DbContext
 {
-    public DbSet<Result> Result { get; set; }
-    public DbSet<Team> Team { get; set; }
+    public DbSet<ResultEnty> Result { get; set; }
+    public DbSet<TeamEnty> Team { get; set; }
 
     public string DbPath { get; }
 
-    public BloggingContext()
+    public StandingContext()
+    {
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "StandingDB.db");
+    }
+
+    // Constructor used by DI when configuring DbContextOptions
+    public StandingContext(DbContextOptions<StandingContext> options)
+        : base(options)
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);
@@ -20,24 +30,4 @@ public class BloggingContext : DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source= {DbPath}");
-}
-
-public class Result
-{
-    public int Id { get; set; }
-    public int TeamId { get; set; }
-    public int Wins { get; set; }
-    public int Losses { get; set; }
-
-}
-
-public class Team
-{
-    public int Id { get; set; }
-    public string Season { get; set; }
-    public string City { get; set; }
-    public string Name { get; set; }
-    public string Division { get; set; }
-    public string League { get; set; }
-
 }

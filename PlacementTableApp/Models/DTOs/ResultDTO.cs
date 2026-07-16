@@ -1,6 +1,6 @@
 ﻿namespace PlacementTableApp.Models.DTOs
 {
-    public class Result(int id, string teamId, int wins, int losses)
+    public class ResultDTO(int id, string teamId, int wins, int losses)
     {
         public int Id { get; } = id;
         public string TeamId { get; set; } = teamId;

@@ -1,11 +1,42 @@
+@model IEnumerable<PlacementTableApp.Models.DTOs.TeamDTO>
+
 @{
     ViewData["Title"] = "Teams";
 }
 
 <h1>Teams</h1>
 
-<p>This is the Teams index page. Populate with a list of teams from the controller/service.</p>
-
 <p>
-    <a class="btn btn-primary" asp-controller="Team" asp-action="Create">Create new team</a>
+    <a class="btn btn-primary" asp-action="Create">Create New Team</a>
 </p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Season</th>
+            <th>City</th>
+            <th>Name</th>
+            <th>Division</th>
+            <th>League</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.Id</td>
+            <td>@t.Season</td>
+            <td>@t.City</td>
+            <td>@t.Name</td>
+            <td>@t.Division</td>
+            <td>@t.League</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@t.Id">Edit</a>
+                <a class="btn btn-sm btn-primary" asp-action="AddResult" asp-route-teamId="@t.Id">Add Result</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

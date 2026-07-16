@@ -1,18 +1,18 @@
-﻿using System.Web.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 using PlacementTableApp.Models.DTOs;
 
 namespace PlacementTableApp.Controllers.Api
 {
-    public class ApiStandingController : ApiController
+    public class ApiStandingController : Controller
     {
         public ApiStandingController() { }
 
         [HttpGet]
         [Route("api/standings")]
-        public IHttpActionResult GetStandings()
+        public IActionResult GetStandings()
         {
             // Sample data for demonstration purposes
-            var standings = new List<Standing>()
+            var standings = new List<StandingDTO>()
             {
                 new("2024", "Regular", 1, "New York", "Yankees", "AL", "East", 95, 67, 50),
                 new("2024", "Regular", 2, "Los Angeles", "Dodgers", "NL", "West", 92, 70, 48),

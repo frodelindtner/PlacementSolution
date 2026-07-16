@@ -1,11 +1,35 @@
+using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
+using PlacementTableApp.Storage.Repositories;
+using PlacementTableApp.Storage;
 using PlacementTableApp.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Initialize SQLite provider from SQLitePCLRaw bundle before any EF Core/DbContext use
+// Requires package SQLitePCLRaw.bundle_e_sqlite3
+Batteries_V2.Init();
 
 builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+
+builder.Services.AddDbContext<StandingContext>(options =>
+    options.UseSqlite(@"Data Source=C:\Users\frode\AppData\Local\standingdb.db"));
+
+// allow resolving DbContext (base type) by returning the StandingContext
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingContext>());
+
+
+
+// Register generic repository and TeamService for DI
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddScoped<ITeamService, TeamService>();
 
 builder.Services.AddScoped<IStandingUSService, StandingUSService>();
 
@@ -35,3 +59,5 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+

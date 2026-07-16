@@ -6,9 +6,9 @@ namespace PlacementTableApp.Storage.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _context;
+        private readonly StandingContext _context;
 
-        public Repository(DbContext context)
+        public Repository(StandingContext context)
         {
             _context = context;
         }

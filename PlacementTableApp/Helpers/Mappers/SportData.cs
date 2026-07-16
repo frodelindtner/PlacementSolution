@@ -6,9 +6,9 @@ namespace PlacementTableApp.Helpers.Mappers
 {
     public class SportData
     {
-        public static Standing ConvertStandingSportData(StandingSportData standingSportData)
+        public static StandingDTO ConvertStandingSportData(StandingSportData standingSportData)
         {
-            return new Standing(
+            return new StandingDTO(
                 standingSportData.Season.ToString() ?? string.Empty,
                 standingSportData.SeasonType.ToString() ?? string.Empty,
                 standingSportData.TeamId,

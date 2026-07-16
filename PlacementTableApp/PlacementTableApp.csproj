@@ -15,11 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
+    <None Include="tmp-data\data-file-2026.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="tmp-data\data-file-2026.json" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="10.0.10" />
+    <!-- Bundle package sets the SQLitePCL.raw provider automatically and should be initialized at startup -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.12" />
   </ItemGroup>
 
 </Project>
