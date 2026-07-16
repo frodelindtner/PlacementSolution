@@ -1,0 +1,5 @@
+{
+  "appHost": {
+    "path": "PlacementSolution.AppHost/PlacementSolution.AppHost.csproj"
+  }
+}
