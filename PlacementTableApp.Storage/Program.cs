@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PlacementTableApp.Storage.Repositories;
 
 namespace PlacementTableApp.Storage
 {
@@ -31,6 +32,9 @@ namespace PlacementTableApp.Storage
             var all = await resultService.GetAllAsync();
             var count = all?.Count() ?? 0;
             Console.WriteLine($"Results count: {count}");
+
+
+            
 
             // Update
             Console.WriteLine("Updating the result");

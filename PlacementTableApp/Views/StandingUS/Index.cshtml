@@ -2,9 +2,39 @@
 
 @{
     ViewData["Title"] = "Standing MLB";
+    var filter_league = ViewData["FilterLeague"] as string;
+    var filter_division = ViewData["FilterDivision"] as string;
 }
 
 <h1>@ViewData["Title"]</h1>
+
+
+<h5>Vælg filter</h5>
+@{
+    if (filter_league != null)
+    {
+        <p>filter league: @filter_league</p>        
+    }
+    else
+    {
+        <a href="/StandingUS/AL">American League</a> <br />
+        <a href="/StandingUS/NL">National league</a>        
+    }
+}
+
+@if (filter_division != null)
+{
+    <p>filter division: @filter_division</p>
+}
+else
+{
+    @if (filter_league != null)
+    {
+        <a href="/StandingUS/@filter_league/central">Central</a> <br>
+        <a href="/StandingUS/@filter_league/east">East</a> <br />
+        <a href="/StandingUS/@filter_league/west">West</a> <br />
+    }
+}
 
 <table class="table table-striped table-bordered">
     <thead>
