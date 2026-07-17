@@ -9,9 +9,6 @@ namespace PlacementTableApp.Controllers
 {
     public class TeamController : Controller
     {
-        private static List<ResultDTO> _results = new();
-        private static List<TeamDTO> _teams = new();
-
         private readonly ITeamService _teamService;
 
         public TeamController(ITeamService teamService)
@@ -19,7 +16,29 @@ namespace PlacementTableApp.Controllers
             _teamService = teamService;
         }
 
+        public async Task<IActionResult> CreateTestTeams()
+        {
+            var teams = new List<TeamDTO>
+            {
+                new() { Id = 0, City = "Hørsholm", Division = "1. Div", League = "Øst", Name = "Hurricanes", Season = "2026" },
+                new() { Id = 0, City = "Kokkedal", Division = "1. Div", League = "Øst", Name = "Pirats", Season = "2026" },
+                new() { Id = 0, City = "Lyngby", Division = "1. Div", League = "Øst", Name = "Jokers", Season = "2026" },
+                new() { Id = 0, City = "Ballerup", Division = "1. Div", League = "Øst", Name = "Vandals", Season = "2026"},
+                new() { Id = 0, City = "Odense", Division = "1. Div", League = "Central", Name = "Wolwes", Season = "2026"},
+                new() { Id = 0, City = "Odense", Division = "1. Div", League = "Central", Name = "Giants", Season = "2026"},
+                new() { Id = 0, City = "Øksendrup", Division = "1. Div", League = "Central", Name = "Oysters", Season = "2026"},
+                new() { Id = 0, City = "Aarhus", Division = "1. Div", League = "Vest", Name = "Royals", Season = "2026"},
+                new() { Id = 0, City = "Herning", Division = "1. Div", League = "Vest", Name = "Trolls", Season = "2026"}
+            };
+
+            foreach (var team in teams) {
+                _teamService.AddTeamAsync(team);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         // Select all
+        [HttpGet]
         public async Task<IActionResult> IndexAsync()
         {
             var list = await _teamService.GetTeamsAsync();
@@ -35,21 +54,21 @@ namespace PlacementTableApp.Controllers
         // Create - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TeamDTO team)
+        public async Task<IActionResult> Create(TeamDTO team)
         {
             if (!ModelState.IsValid)
                 return View(team);
 
-            var nextId = _teams.Any() ? _teams.Max(t => t.Id) + 1 : 1;
-            var newTeam = new TeamDTO(nextId, team.Season, team.City, team.Name, team.Division, team.League);
-            _teams.Add(newTeam);
-            return RedirectToAction(nameof(IndexAsync));
+            var newTeam = new TeamDTO(0, team.Season, team.City, team.Name, team.Division, team.League);
+            await _teamService.AddTeamAsync(newTeam);
+            return RedirectToAction(nameof(Index));
         }
 
         // Update/Edit - GET
+        [Route("/Team/Edit/{id?}")]
         public IActionResult Edit(int id)
         {
-            var team = _teams.FirstOrDefault(t => t.Id == id);
+            var team = _teamService.GetTeamByIdAsync(id).Result;
             if (team == null) return NotFound();
             return View(team);
         }
@@ -57,43 +76,28 @@ namespace PlacementTableApp.Controllers
         // Update/Edit - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("/Team/Edit/{id?}")]
         public IActionResult Edit(TeamDTO team)
         {
             if (!ModelState.IsValid)
                 return View(team);
 
-            var existing = _teams.FirstOrDefault(t => t.Id == team.Id);
+            var existing = _teamService.GetTeamByIdAsync(team.Id);
             if (existing == null) return NotFound();
 
-            // Replace the item with new instance (Team has read-only Id)
-            var index = _teams.IndexOf(existing);
-            _teams[index] = new TeamDTO(existing.Id, team.Season, team.City, team.Name, team.Division, team.League);
+            var result = _teamService.UpdateTeamAsync(team);
 
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
 
-        // Add Result - GET
-        public IActionResult AddResult(int teamId)
+        [Route("/Team/Delete/{teamId?}")]
+        public IActionResult Delete(int teamId)
         {
-            var team = _teams.FirstOrDefault(t => t.Id == teamId);
+            var team = _teamService.GetTeamByIdAsync(teamId);
             if (team == null) return NotFound();
-            var model = new ResultDTO(0, teamId.ToString(), 0, 0);
-            ViewBag.TeamName = team.Name;
-            return View(model);
-        }
+            _teamService.DeleteTeamAsync(teamId);
 
-        // Add Result - POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult AddResult(ResultDTO result)
-        {
-            if (!ModelState.IsValid)
-                return View(result);
-
-            var nextId = _results.Any() ? _results.Max(r => r.Id) + 1 : 1;
-            var res = new ResultDTO(nextId, result.TeamId.ToString(), result.Wins, result.Losses);
-            _results.Add(res);
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

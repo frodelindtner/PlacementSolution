@@ -6,10 +6,10 @@ namespace PlacementTableApp.Services
     public interface ITeamService
     {
         public Task<List<TeamDTO>> GetTeamsAsync();
-        public Task<TeamEnty> GetTeamByIdAsync(int id);
+        public Task<TeamDTO> GetTeamByIdAsync(int id);
 
-        public Task AddTeamAsync(TeamEnty team);
-        public Task UpdateTeamAsync(TeamEnty team);
+        public Task AddTeamAsync(TeamDTO team);
+        public Task UpdateTeamAsync(TeamDTO team);
         public Task DeleteTeamAsync(int id);
 
     }

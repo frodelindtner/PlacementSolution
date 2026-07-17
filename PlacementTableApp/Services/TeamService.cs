@@ -1,4 +1,5 @@
-﻿using PlacementTableApp.Models.DTOs;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using PlacementTableApp.Models.DTOs;
 using PlacementTableApp.Storage.Entities;
 using PlacementTableApp.Storage.Repositories;
 using System.Linq;
@@ -15,9 +16,13 @@ namespace PlacementTableApp.Services
             _repository = repository;
         }
 
-        public Task AddTeamAsync(TeamEnty team)
+        public Task AddTeamAsync(TeamDTO team)
         {
-            return _repository.AddAsync(team);
+            var addTeam = new TeamEnty { City = team.City, Division = team.Division, 
+                Id = team.Id, League = team.League, Name = team.Name, Season = team.Season};
+
+            var teamAdded = _repository.AddAsync(addTeam);
+            return Task.CompletedTask;
         }
 
         public Task DeleteTeamAsync(int id)
@@ -25,9 +30,12 @@ namespace PlacementTableApp.Services
             return _repository.DeleteAsync(id);
         }
 
-        public Task<TeamEnty> GetTeamByIdAsync(int id)
+        public async Task<TeamDTO> GetTeamByIdAsync(int id)
         {
-            return _repository.GetByIdAsync(id);
+            var item = _repository.GetByIdAsync(id).Result ?? throw new Exception("Not Found");
+            var dto = new TeamDTO(item.Id, item.Season, item.City, item.Name, item.Division, item.League);
+
+            return dto;
         }
 
         public async Task<List<TeamDTO>> GetTeamsAsync()
@@ -36,12 +44,15 @@ namespace PlacementTableApp.Services
 
             var teamsDtos = teams.Select(x => new TeamDTO(x.Id, x.Season, x.City, x.Name, x.Division, x.League));
 
-            return teamsDtos.ToList();
+            return [.. teamsDtos];
         }
 
-        public Task UpdateTeamAsync(TeamEnty team)
+        public async Task UpdateTeamAsync(TeamDTO team)
         {
-            return _repository.UpdateAsync(team);
+            var enty = new TeamEnty { City = team.City, Division = team.Division, Id = team.Id, League = team.League,
+                Name = team.Name, Season = team.Season};
+
+            _ = _repository.UpdateAsync(enty);
         }
     }
 }
