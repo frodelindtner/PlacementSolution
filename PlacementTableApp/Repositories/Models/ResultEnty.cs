@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PlacementTableApp.Storage.Entities
+namespace PlacementTableApp.Repositories.Models
 {
     public class ResultEnty
     {

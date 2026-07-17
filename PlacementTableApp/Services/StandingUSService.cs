@@ -1,6 +1,7 @@
 ﻿using PlacementTableApp.Helpers.Mappers;
-using PlacementTableApp.Models.DTOs;
 using PlacementTableApp.Models.DTOs.Input;
+using PlacementTableApp.Models.ViewModels;
+using PlacementTableApp.Services.Interfaces;
 using System.Text.Json;
 
 namespace PlacementTableApp.Services
@@ -12,7 +13,7 @@ namespace PlacementTableApp.Services
 
         }
 
-        public async Task<List<StandingDTO>> GetStandingsAsync(string league = null, string division = null)
+        public async Task<List<StandingView>> GetStandingsAsync(string league = null, string division = null)
         {
             var json = await ReadJsonFileAsync();
 

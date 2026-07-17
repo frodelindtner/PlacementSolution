@@ -3,6 +3,8 @@ using SQLitePCL;
 using PlacementTableApp.Storage.Repositories;
 using PlacementTableApp.Storage;
 using PlacementTableApp.Services;
+using PlacementTableApp.Services.Interfaces;
+using PlacementTableApp.Repositories.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
-using PlacementTableApp.Models.DTOs;
 using PlacementTableApp.Models.DTOs.Input;
+using PlacementTableApp.Models.ViewModels;
 
 namespace PlacementTableApp.Helpers.Mappers
 {
     public class SportData
     {
-        public static StandingDTO ConvertStandingSportData(StandingSportData standingSportData)
+        public static StandingView ConvertStandingSportData(StandingSportData standingSportData)
         {
-            return new StandingDTO(
+            return new StandingView(
                 standingSportData.Season.ToString() ?? string.Empty,
                 standingSportData.SeasonType.ToString() ?? string.Empty,
                 standingSportData.TeamId,

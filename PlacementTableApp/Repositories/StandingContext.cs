@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using PlacementTableApp.Storage.Entities;
+using PlacementTableApp.Repositories.Models;
 
 public class StandingContext : DbContext
 {

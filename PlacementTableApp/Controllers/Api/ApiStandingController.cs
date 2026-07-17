@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementTableApp.Models.DTOs;
+using PlacementTableApp.Models.ViewModels;
 
 namespace PlacementTableApp.Controllers.Api
 {
@@ -12,7 +12,7 @@ namespace PlacementTableApp.Controllers.Api
         public IActionResult GetStandings()
         {
             // Sample data for demonstration purposes
-            var standings = new List<StandingDTO>()
+            var standings = new List<StandingView>()
             {
                 new("2024", "Regular", 1, "New York", "Yankees", "AL", "East", 95, 67, 50),
                 new("2024", "Regular", 2, "Los Angeles", "Dodgers", "NL", "West", 92, 70, 48),

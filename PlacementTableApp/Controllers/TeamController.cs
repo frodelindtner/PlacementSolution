@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementTableApp.Models.DTOs;
-using PlacementTableApp.Services;
-using PlacementTableApp.Storage.Entities;
+using PlacementTableApp.Models.ViewModels;
+using PlacementTableApp.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +17,7 @@ namespace PlacementTableApp.Controllers
 
         public async Task<IActionResult> CreateTestTeams()
         {
-            var teams = new List<TeamDTO>
+            var teams = new List<TeamView>
             {
                 new() { Id = 0, City = "Hørsholm", Division = "1. Div", League = "Øst", Name = "Hurricanes", Season = "2026" },
                 new() { Id = 0, City = "Kokkedal", Division = "1. Div", League = "Øst", Name = "Pirats", Season = "2026" },
@@ -32,7 +31,7 @@ namespace PlacementTableApp.Controllers
             };
 
             foreach (var team in teams) {
-                _teamService.AddTeamAsync(team);
+                _ = _teamService.AddTeamAsync(team);
             }
             return RedirectToAction(nameof(Index));
         }
@@ -54,13 +53,12 @@ namespace PlacementTableApp.Controllers
         // Create - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TeamDTO team)
+        public async Task<IActionResult> Create(TeamView team)
         {
-            if (!ModelState.IsValid)
-                return View(team);
-
-            var newTeam = new TeamDTO(0, team.Season, team.City, team.Name, team.Division, team.League);
+            if (!ModelState.IsValid) return View(team);
+            var newTeam = new TeamView(0, team.Season, team.City, team.Name, team.Division, team.League);
             await _teamService.AddTeamAsync(newTeam);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -70,6 +68,7 @@ namespace PlacementTableApp.Controllers
         {
             var team = _teamService.GetTeamByIdAsync(id).Result;
             if (team == null) return NotFound();
+
             return View(team);
         }
 
@@ -77,14 +76,12 @@ namespace PlacementTableApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/Team/Edit/{id?}")]
-        public IActionResult Edit(TeamDTO team)
+        public IActionResult Edit(TeamView team, int id)
         {
-            if (!ModelState.IsValid)
-                return View(team);
-
+            if (!ModelState.IsValid) return View(team);
+            if (team.Id == id) return NotFound();
             var existing = _teamService.GetTeamByIdAsync(team.Id);
             if (existing == null) return NotFound();
-
             var result = _teamService.UpdateTeamAsync(team);
 
             return RedirectToAction(nameof(Index));

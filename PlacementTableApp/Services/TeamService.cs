@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using PlacementTableApp.Models.DTOs;
-using PlacementTableApp.Storage.Entities;
-using PlacementTableApp.Storage.Repositories;
+using PlacementTableApp.Models.ViewModels;
+using PlacementTableApp.Repositories.Interfaces;
+using PlacementTableApp.Repositories.Models;
+using PlacementTableApp.Services.Interfaces;
 using System.Linq;
 
 namespace PlacementTableApp.Services
@@ -16,12 +17,10 @@ namespace PlacementTableApp.Services
             _repository = repository;
         }
 
-        public Task AddTeamAsync(TeamDTO team)
+        public Task AddTeamAsync(TeamView team)
         {
-            var addTeam = new TeamEnty { City = team.City, Division = team.Division, 
-                Id = team.Id, League = team.League, Name = team.Name, Season = team.Season};
-
-            var teamAdded = _repository.AddAsync(addTeam);
+            var addTeam = Helpers.Mappers.EntyModel.ConvertTeam(team);
+            _ = _repository.AddAsync(addTeam);
             return Task.CompletedTask;
         }
 
@@ -30,28 +29,23 @@ namespace PlacementTableApp.Services
             return _repository.DeleteAsync(id);
         }
 
-        public async Task<TeamDTO> GetTeamByIdAsync(int id)
+        public async Task<TeamView> GetTeamByIdAsync(int id)
         {
             var item = _repository.GetByIdAsync(id).Result ?? throw new Exception("Not Found");
-            var dto = new TeamDTO(item.Id, item.Season, item.City, item.Name, item.Division, item.League);
-
+            var dto = Helpers.Mappers.ViewModel.ConvertTeam(item);
             return dto;
         }
 
-        public async Task<List<TeamDTO>> GetTeamsAsync()
+        public async Task<List<TeamView>> GetTeamsAsync()
         {
             var teams = await _repository.GetAllAsync();
-
-            var teamsDtos = teams.Select(x => new TeamDTO(x.Id, x.Season, x.City, x.Name, x.Division, x.League));
-
+            var teamsDtos = teams.Select(x => Helpers.Mappers.ViewModel.ConvertTeam(x));
             return [.. teamsDtos];
         }
 
-        public async Task UpdateTeamAsync(TeamDTO team)
+        public async Task UpdateTeamAsync(TeamView team)
         {
-            var enty = new TeamEnty { City = team.City, Division = team.Division, Id = team.Id, League = team.League,
-                Name = team.Name, Season = team.Season};
-
+            var enty = Helpers.Mappers.EntyModel.ConvertTeam(team);
             _ = _repository.UpdateAsync(enty);
         }
     }

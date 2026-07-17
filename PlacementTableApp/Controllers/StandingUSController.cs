@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementTableApp.Services;
+using PlacementTableApp.Services.Interfaces;
 
 namespace PlacementTableApp.Controllers
 {

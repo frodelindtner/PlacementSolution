@@ -1,9 +1,9 @@
-﻿namespace PlacementTableApp.Models.DTOs
+﻿namespace PlacementTableApp.Models.ViewModels
 {
 
-    public class TeamDTO
+    public class TeamView
     {
-        public TeamDTO(int id, string season, string city, string name, string division, string league)
+        public TeamView(int id, string? season, string? city, string? name, string? division, string? league)
         {
             Id = id;
             Season = season;
@@ -13,7 +13,7 @@
             League = league;
         }
 
-        public TeamDTO()
+        public TeamView()
         {
             Id = 0;
         }
