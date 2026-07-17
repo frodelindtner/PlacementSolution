@@ -11,11 +11,13 @@ namespace PlacementTableApp.Services
     public class TeamService : ITeamService
     {
         private readonly IRepository<TeamEnty> _repository;
+        private readonly IResultService _resultService;
 
         // Repository is injected via DI. Do not create DbContext here.
-        public TeamService(IRepository<TeamEnty> repository)
+        public TeamService(IRepository<TeamEnty> repository, IResultService resultService)
         {
             _repository = repository;
+            _resultService = resultService;
         }
 
         public List<string?> CreateFilers()
@@ -25,10 +27,17 @@ namespace PlacementTableApp.Services
             return dFilter;
         }
 
-        public Task AddTeamAsync(TeamView team)
+        public async Task<Task> AddTeamAsync(TeamView team)
         {
             var addTeam = Helpers.Mappers.EntyModel.ConvertTeam(team);
-            _ = _repository.AddAsync(addTeam);
+            var newTeam = _repository.AddAsync(addTeam).Result;
+            var resultItem = new ResultEnty() {
+                Id = 0,
+                Losses = 0,
+                Wins = 0,
+                TeamId = newTeam.Id
+            };
+            await _resultService.CreateAsync(resultItem);
             return Task.CompletedTask;
         }
 

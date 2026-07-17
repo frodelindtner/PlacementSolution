@@ -1,0 +1,20 @@
+@model PlacementTableApp.Models.ViewModels.ResultView
+
+<h1>Add Result to Team</h1>
+
+<form asp-action="AddResult" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="TeamId" class="form-label"></label>
+        <input asp-for="TeamId" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Wins" class="form-label"></label>
+        <input asp-for="Wins" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Losses" class="form-label"></label>
+        <input asp-for="Losses" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

@@ -20,6 +20,26 @@ namespace PlacementTableApp.Controllers
             return View(results);
         }
 
+        //https://localhost:7053/Team/AddResult?teamId=18
+        //[Route("/Result/AddResult/[teamId]")]
+        public IActionResult AddResult(int teamId)
+        {
+            var result = _service.GetByTeamId(teamId).Result;
+            if (result == null) return NotFound();
+            var view = Helpers.Mappers.ViewModel.ConvertResult(result);
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddResult(ResultView model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            await _service.UpdateTeamAsync(model);
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Result/Create
         public IActionResult Create()
         {

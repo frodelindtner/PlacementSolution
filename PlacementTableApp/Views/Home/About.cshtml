@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+
+<p>Det indholder to sider til at vise resultater for Baseball liga'er</p>
+<ul>
+    <li>USA - data kommer fra API</li>
+    <li>Danmark - local - data ligger i local SQL database</li>
+</ul>
+<p>
+    Det er ikke muligt at ændre data, som kommer fra API'et - der bliver leveret af SportDataIO.<br>
+    Men det er muligt at ændre og opsætte data til den lokale danske liga.<br>
+    Bemærk at når jeg fanger data fra externt API skal der bruges en gyldig API KEY.
+</p>
+<p>Jeg har benyttet MVC - .NET Core framework og følgt "3-layer seperation".</p>
+<table cellpadding="5" style="width: 60%;">
+    <tr class="bordertop">
+        <th>Præsentation (HTML CSS)</th>
+        <td>Razor</td>
+        <td>Route's / Controller</td>
+    </tr>
+    <tr class="bordertop">
+        <th>Forretnings logic</th>
+        <td>Services</td>
+        <td>Methods</td>
+        <td>Objekter</td>
+    </tr>
+    <tr class="bordertop">
+        <th>Data adgang</th>
+        <td>SQLite</td>
+        <td>Mapping</td>
+    </tr>
+</table>
+<br>
+<p>
+    Ved at benytte denne arkitektur adskiller man ansvaret for diverse componenter i websitet.<br>
+    Hvilket giver bedre overblik, og bedre muligheder for genanvendelse af logik.
+</p>
+<p>&nbsp;</p>
+<p><a href='get-started'>Kom igang :-)</a></p>
+<p>&nbsp;</p>
+<hr>
+<p>Site er lavet af Frode Lindtner - data leveret af SportDataIO - og det blev lavet sommeren 2026</p>

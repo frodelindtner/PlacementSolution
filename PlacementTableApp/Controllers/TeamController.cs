@@ -15,7 +15,7 @@ namespace PlacementTableApp.Controllers
             _teamService = teamService;
         }
 
-        public async Task<IActionResult> CreateTestTeams()
+        public async Task<IActionResult> CreateTeamsAuto()
         {
             var teams = new List<TeamView>
             {
@@ -96,5 +96,6 @@ namespace PlacementTableApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        
     }
 }
