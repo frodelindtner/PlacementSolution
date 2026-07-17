@@ -33,7 +33,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IResultService, ResultService>();
-builder.Services.AddScoped<IStandingUSService, StandingUSService>();
+builder.Services.AddScoped<IStandingService, StandingService>();
 
 var app = builder.Build();
 

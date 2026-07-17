@@ -5,9 +5,9 @@ namespace PlacementTableApp.Controllers
 {
     public class StandingUSController : Controller
     {
-        private readonly IStandingUSService _standingUSService;
+        private readonly IStandingService _standingUSService;
 
-        public StandingUSController(IStandingUSService standingUSService)
+        public StandingUSController(IStandingService standingUSService)
         {
             _standingUSService = standingUSService;
         }
@@ -18,7 +18,7 @@ namespace PlacementTableApp.Controllers
             ViewData["FilterLeague"] ??= league;
             ViewData["FilterDivision"] ??= division;
 
-            var data = await _standingUSService.GetStandingsAsync(league, division);
+            var data = await _standingUSService.GetStandingsUSAsync(league, division);
             return View(data);
         }
     }

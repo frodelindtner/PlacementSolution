@@ -6,14 +6,48 @@ using System.Text.Json;
 
 namespace PlacementTableApp.Services
 {
-    public class StandingUSService : IStandingUSService
+    public class StandingService : IStandingService
     {
-        public StandingUSService()
-        {
+        private ITeamService _teamService;
+        private IResultService _resultService;
 
+        public StandingService(ITeamService teamService, IResultService resultService)
+        {
+            _teamService = teamService;
+            _resultService = resultService;
         }
 
-        public async Task<List<StandingView>> GetStandingsAsync(string league = null, string division = null)
+        public async Task<List<StandingView>> GetStandingLocalAsync(string league = null, string division = null)
+        {
+            var standings = new List<StandingView>();
+            var teams = _teamService.GetTeamsAsync().Result;
+            foreach (var team in teams) {
+                var result = _resultService.GetByTeamId(team.Id).Result;
+                if (result != null)
+                {
+                    var item = new StandingView()
+                    {
+                        Season = team.Season ?? string.Empty,
+                        City = team.City ?? string.Empty, 
+                        TeamId = team.Id,
+                        Division = team.Division ?? string.Empty,
+                        League = team.League ?? string.Empty,
+                        SeasonType = "N/A",
+                        Name = team.Name ?? string.Empty,
+                        Losses = result.Losses,
+                        Wins = result.Wins,
+                        NightWins = 0
+                    };
+
+                    standings.Add(item);
+                }
+            }
+            var orderStandings = standings.OrderByDescending(x => x.Wins).ThenBy(x => x.Losses);
+            return [.. orderStandings];
+        }
+
+
+        public async Task<List<StandingView>> GetStandingsUSAsync(string league = null, string division = null)
         {
             var json = await ReadJsonFileAsync();
 
