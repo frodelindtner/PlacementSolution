@@ -32,7 +32,7 @@ builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingContex
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddScoped<ITeamService, TeamService>();
-
+builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IStandingUSService, StandingUSService>();
 
 var app = builder.Build();

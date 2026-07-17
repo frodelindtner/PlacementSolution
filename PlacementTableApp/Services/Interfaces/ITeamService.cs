@@ -1,5 +1,4 @@
 ﻿using PlacementTableApp.Models.ViewModels;
-using PlacementTableApp.Storage.Entities;
 
 namespace PlacementTableApp.Services.Interfaces
 {
@@ -12,5 +11,6 @@ namespace PlacementTableApp.Services.Interfaces
         public Task UpdateTeamAsync(TeamView team);
         public Task DeleteTeamAsync(int id);
 
+        public List<string?> CreateFilers();
     }
 }

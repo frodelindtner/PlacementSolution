@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using PlacementTableApp.Models.ViewModels;
 using PlacementTableApp.Repositories.Interfaces;
 using PlacementTableApp.Repositories.Models;
@@ -15,6 +16,13 @@ namespace PlacementTableApp.Services
         public TeamService(IRepository<TeamEnty> repository)
         {
             _repository = repository;
+        }
+
+        public List<string?> CreateFilers()
+        {
+            var teams = _repository.GetAllAsync().Result;
+            var dFilter = teams.Select(x => x.League).Distinct().ToList();
+            return dFilter;
         }
 
         public Task AddTeamAsync(TeamView team)

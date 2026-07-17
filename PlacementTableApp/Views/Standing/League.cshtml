@@ -12,4 +12,9 @@
     <a class="btn btn-primary" asp-controller="Standing" asp-action="Refresh">Refresh standings</a>
 </p>
 
-<a href="/Standing/League/Øst">Øst</a> | <a href="/Standing/League/Vest">Vest</a> | <a href="/Standing/League/Central">Central</a>
+<p>
+    @foreach (string filterOption in filterOptionleague)
+    {
+        <p>@filterOption</p>
+    }
+</p>

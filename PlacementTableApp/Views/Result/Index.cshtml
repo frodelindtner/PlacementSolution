@@ -1,11 +1,25 @@
-@{
-    ViewData["Title"] = "Results";
-}
+@model IEnumerable<PlacementTableApp.Models.ViewModels.ResultView>
 
 <h1>Results</h1>
 
-<p>This is the Results index page. Populate with a list of results from the controller/service.</p>
-
-<p>
-    <a class="btn btn-primary" asp-controller="Result" asp-action="Create">Create new result</a>
-</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Team</th>
+            <th>Wins</th>
+            <th>Losses</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.TeamId</td>
+                <td>@r.Wins</td>
+                <td>@r.Losses</td>
+            </tr>
+        }
+    </tbody>
+</table>
