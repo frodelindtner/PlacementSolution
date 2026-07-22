@@ -7,7 +7,6 @@ using PlacementTableApp.Services.Interfaces;
 using PlacementTableApp.Storage.Repositories;
 using SQLitePCL;
 using PlacementTableApp.HealthChecks;
-using PlacementTableApp.Domain.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +40,7 @@ builder.Services.AddScoped<IStandingService, StandingService>();
 var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
 if (!string.IsNullOrWhiteSpace(pgConn))
 {
-    builder.Services.AddDbContext<MoviesContext>(options => options.UseNpgsql(pgConn));
+    builder.Services.AddDbContext<MoviesDbContext>(options => options.UseNpgsql(pgConn));
 
     builder.Services.AddHealthChecks()
         .AddCheck<DatabaseReadyHealthCheck>("DatabaseReady");
