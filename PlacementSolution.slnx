@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="PlacementSolution.AppHost/PlacementSolution.AppHost.csproj" />
   <Project Path="PlacementSolution.ServiceDefaults/PlacementSolution.ServiceDefaults.csproj" />
+  <Project Path="PlacementTableApp.Infrastructure/PlacementTableApp.Infrastructure.csproj" Id="9a229439-a607-4eb3-b32b-0cdb8d8707c6" />
   <Project Path="PlacementTableApp/PlacementTableApp.csproj" />
 </Solution>

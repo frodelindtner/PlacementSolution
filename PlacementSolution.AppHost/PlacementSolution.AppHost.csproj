@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.2.4">
+<Project Sdk="Aspire.AppHost.Sdk/13.4.6">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,10 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>afd2ac09-aa56-4465-bad9-e73ccb76e12f</UserSecretsId>
-  </PropertyGroup>
+  </PropertyGroup>  
+  <!-- Updated Aspire.AppHost.Sdk to 13.4.6 to satisfy DcpDependencyCheck requirement -->
+
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.5.302" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Sqlite" Version="13.4.0" />
+    <PackageReference Include="MessagePack" Version="3.1.8" />
   </ItemGroup>
 
   <ItemGroup>
