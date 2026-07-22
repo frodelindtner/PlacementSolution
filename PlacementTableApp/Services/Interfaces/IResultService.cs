@@ -9,7 +9,8 @@ namespace PlacementTableApp.Services.Interfaces
         Task CreateAsync(PlacementTableApp.Models.ViewModels.ResultView view);
 
         public Task CreateAsync(ResultEnty enty);
+        public Task<ResultEnty> GetById(int id);
         public Task<ResultEnty> GetByTeamId(int teamId);
-        public Task UpdateTeamAsync(ResultView result);
+        public Task UpdateResultAsync(ResultView result);
     }
 }

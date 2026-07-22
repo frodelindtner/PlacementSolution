@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlacementSolution.ServiceDefaults\PlacementSolution.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\PlacementTableApp.Domain\PlacementTableApp.Domain.csproj" />
+    <ProjectReference Include="..\PlacementTableApp.Infrastructure\PlacementTableApp.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,10 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="10.0.10" />
+    <PackageReference Include="Npgsql" Version="10.0.3" />
     <!-- Bundle package sets the SQLitePCL.raw provider automatically and should be initialized at startup -->
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.12" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.4" />
   </ItemGroup>
 
 </Project>

@@ -1,32 +1,25 @@
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
-using PlacementTableApp.Storage.Repositories;
-using PlacementTableApp.Storage;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
-using PlacementTableApp.Repositories.Interfaces;
-
+using SQLitePCL;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Initialize SQLite provider from SQLitePCLRaw bundle before any EF Core/DbContext use
-// Requires package SQLitePCLRaw.bundle_e_sqlite3
 Batteries_V2.Init();
 
 builder.AddServiceDefaults();
 
+var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
+builder.Services.AddDbContext<StandingDbContext>(options => options.UseNpgsql(pgConn));
+
+builder.Services.AddInfrastructure();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-
-builder.Services.AddDbContext<StandingContext>(options =>
-    options.UseSqlite(@"Data Source=C:\Users\frode\AppData\Local\standingdb.db"));
-
 // allow resolving DbContext (base type) by returning the StandingContext
-builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingContext>());
-
-
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingDbContext>());
 
 // Register generic repository and TeamService for DI
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -36,6 +29,11 @@ builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IStandingService, StandingService>();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    await app.Services.InitializeDatabaseAsync();
+}
 
 app.MapDefaultEndpoints();
 
