@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PlacementTableApp.Infrastructure.Models;
+using PlacementTableApp.Domain.Models;
 
 namespace PlacementTableApp.Infrastructure
 {
@@ -7,7 +7,7 @@ namespace PlacementTableApp.Infrastructure
     // This interface is how the Application layer talks to the database without
     // depending on the Infrastructure project. It exposes the DbSet directly, so
     // services get the full power of EF Core and LINQ - no repository in between.
-    public interface IApplicationDbContext
+    public interface IMoviesDbContext
     {
         DbSet<Movie> Movies { get; }
 

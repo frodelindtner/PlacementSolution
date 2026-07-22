@@ -1,4 +1,4 @@
-﻿namespace PlacementTableApp.Infrastructure.Models
+﻿namespace PlacementTableApp.Domain.Models
 {
     public sealed class Movie : Entity
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace PlacementTableApp.Infrastructure.Models
+namespace PlacementTableApp.Domain.Models
 {
     public abstract class Entity
     {

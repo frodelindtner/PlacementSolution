@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PlacementTableApp.Infrastructure.Models;
+using PlacementTableApp.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,8 +13,8 @@ namespace PlacementTableApp.Infrastructure
         public static async Task InitializeDatabaseAsync(this IServiceProvider services, CancellationToken cancellationToken = default)
         {
             using var scope = services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<ApplicationDbContext>>();
+            var context = scope.ServiceProvider.GetRequiredService<MoviesDbContext>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<MoviesDbContext>>();
 
             // On a fresh database EF logs an error reading "__EFMigrationsHistory"
             // before that table exists - it catches it and creates the schema. Expected.
@@ -25,7 +25,7 @@ namespace PlacementTableApp.Infrastructure
             await SeedAsync(context, logger, cancellationToken);
         }
 
-        private static async Task SeedAsync(ApplicationDbContext context, ILogger logger, CancellationToken cancellationToken)
+        private static async Task SeedAsync(MoviesDbContext context, ILogger logger, CancellationToken cancellationToken)
         {
             // Idempotent: if the table already has movies, leave the data untouched.
             logger.LogInformation("Seeded 0 movies.");

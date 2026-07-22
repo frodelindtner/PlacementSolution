@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PlacementTableApp.Storage.Models;
+using PlacementTableApp.Domain.Models;
 
-namespace PlacementTableApp.Storage
+namespace PlacementTableApp.Domain.Storage
 {
     public class MoviesContext : DbContext
     {

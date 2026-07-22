@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PlacementSolution.ServiceDefaults\PlacementSolution.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\PlacementTableApp.Domain\PlacementTableApp.Domain.csproj" />
     <ProjectReference Include="..\PlacementTableApp.Infrastructure\PlacementTableApp.Infrastructure.csproj" />
   </ItemGroup>
 

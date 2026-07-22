@@ -4,11 +4,10 @@ using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Repositories.Interfaces;
 using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
-using PlacementTableApp.Storage;
 using PlacementTableApp.Storage.Repositories;
 using SQLitePCL;
 using PlacementTableApp.HealthChecks;
-using PlacementTableApp.Infrastructure;
+using PlacementTableApp.Domain.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +17,7 @@ Batteries_V2.Init();
 
 builder.AddServiceDefaults();
 
-builder.AddNpgsqlDbContext<ApplicationDbContext>("standingsdb");
+builder.AddNpgsqlDbContext<MoviesDbContext>("standingsdb");
 
 builder.Services.AddInfrastructure();
 

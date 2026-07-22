@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <ProjectReference Include="..\PlacementTableApp.Domain\PlacementTableApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

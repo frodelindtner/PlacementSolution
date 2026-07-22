@@ -11,7 +11,7 @@ using PlacementTableApp.Infrastructure;
 
 namespace PlacementTableApp.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(MoviesDbContext))]
     [Migration("20260722084950_init")]
     partial class init
     {

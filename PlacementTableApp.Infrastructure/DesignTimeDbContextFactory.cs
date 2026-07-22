@@ -6,15 +6,15 @@ using System.Text;
 
 namespace PlacementTableApp.Infrastructure
 {
-    public sealed class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    public sealed class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MoviesDbContext>
     {
-        public ApplicationDbContext CreateDbContext(string[] args)
+        public MoviesDbContext CreateDbContext(string[] args)
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            var options = new DbContextOptionsBuilder<MoviesDbContext>()
                 .UseNpgsql("Host=localhost;Database=standingsdb;Username=postgres;Password=postgres")
                 .Options;
 
-            return new ApplicationDbContext(options);
+            return new MoviesDbContext(options);
         }
     }
 }
