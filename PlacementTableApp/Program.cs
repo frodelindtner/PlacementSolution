@@ -7,6 +7,7 @@ using PlacementTableApp.Services.Interfaces;
 using PlacementTableApp.Storage;
 using PlacementTableApp.Storage.Repositories;
 using SQLitePCL;
+using PlacementTableApp.HealthChecks;
 using PlacementTableApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,22 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IStandingService, StandingService>();
+
+// Register MoviesContext for Postgres (second DbContext) and add DatabaseReady health check
+var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
+if (!string.IsNullOrWhiteSpace(pgConn))
+{
+    builder.Services.AddDbContext<MoviesContext>(options => options.UseNpgsql(pgConn));
+
+    builder.Services.AddHealthChecks()
+        .AddCheck<DatabaseReadyHealthCheck>("DatabaseReady");
+}
+else
+{
+    // Ensure a DatabaseReady check is present and reports unhealthy if no connection string configured
+    builder.Services.AddHealthChecks()
+        .AddCheck("DatabaseReady", () => HealthCheckResult.Unhealthy("Postgres connection string 'standingsdb' not configured."));
+}
 
 var app = builder.Build();
 
