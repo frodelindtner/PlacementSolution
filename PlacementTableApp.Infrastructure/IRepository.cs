@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PlacementTableApp.Repositories.Interfaces
+namespace PlacementTableApp.Infrastructure
 {
     public interface IRepository<T> where T : class
     {

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using PlacementTableApp.Models.ViewModels;
+using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
 
 namespace PlacementTableApp.Controllers
@@ -12,6 +14,18 @@ namespace PlacementTableApp.Controllers
         {
             _service = service;
         }
+
+        //[Route("/Result/AddWin/[resultId]")]
+        public async Task<IActionResult> AddWin(int teamId)
+        {
+            var updResult = _service.GetByTeamId(teamId).Result;
+            updResult.Wins += 1;
+            ResultView view = Helpers.Mappers.ViewModel.ConvertResult(updResult);
+            await _service.UpdateResultAsync(view);
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // List all results
         public async Task<IActionResult> Index()
@@ -36,7 +50,7 @@ namespace PlacementTableApp.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            await _service.UpdateTeamAsync(model);
+            await _service.UpdateResultAsync(model);
             return RedirectToAction(nameof(Index));
         }
 

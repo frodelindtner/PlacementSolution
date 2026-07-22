@@ -1,33 +1,25 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using PlacementTableApp.Infrastructure;
-using PlacementTableApp.Repositories.Interfaces;
 using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
-using PlacementTableApp.Storage.Repositories;
 using SQLitePCL;
-using PlacementTableApp.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Initialize SQLite provider from SQLitePCLRaw bundle before any EF Core/DbContext use
-// Requires package SQLitePCLRaw.bundle_e_sqlite3
 Batteries_V2.Init();
 
 builder.AddServiceDefaults();
 
-builder.AddNpgsqlDbContext<MoviesDbContext>("standingsdb");
+var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
+builder.Services.AddDbContext<StandingDbContext>(options => options.UseNpgsql(pgConn));
 
 builder.Services.AddInfrastructure();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<StandingContext>(options =>
-    options.UseSqlite(@"Data Source=C:\Users\frode\AppData\Local\standingdb.db"));
-
 // allow resolving DbContext (base type) by returning the StandingContext
-builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingContext>());
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingDbContext>());
 
 // Register generic repository and TeamService for DI
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -35,22 +27,6 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IStandingService, StandingService>();
-
-// Register MoviesContext for Postgres (second DbContext) and add DatabaseReady health check
-var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
-if (!string.IsNullOrWhiteSpace(pgConn))
-{
-    builder.Services.AddDbContext<MoviesDbContext>(options => options.UseNpgsql(pgConn));
-
-    builder.Services.AddHealthChecks()
-        .AddCheck<DatabaseReadyHealthCheck>("DatabaseReady");
-}
-else
-{
-    // Ensure a DatabaseReady check is present and reports unhealthy if no connection string configured
-    builder.Services.AddHealthChecks()
-        .AddCheck("DatabaseReady", () => HealthCheckResult.Unhealthy("Postgres connection string 'standingsdb' not configured."));
-}
 
 var app = builder.Build();
 

@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using PlacementTableApp.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PlacementTableApp.Storage.Repositories
+namespace PlacementTableApp.Infrastructure
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly StandingContext _context;
+        private readonly StandingDbContext _context;
 
-        public Repository(StandingContext context)
+        public Repository(StandingDbContext context)
         {
             _context = context;
         }
