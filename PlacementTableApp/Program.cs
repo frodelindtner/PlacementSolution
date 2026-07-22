@@ -15,14 +15,14 @@ builder.Services.AddDbContext<StandingDbContext>(options => options.UseNpgsql(pg
 
 builder.Services.AddInfrastructure();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 // allow resolving DbContext (base type) by returning the StandingContext
 builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingDbContext>());
 
 // Register generic repository and TeamService for DI
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IResultService, ResultService>();

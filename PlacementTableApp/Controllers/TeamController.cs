@@ -79,7 +79,7 @@ namespace PlacementTableApp.Controllers
         public IActionResult Edit(TeamView team, int id)
         {
             if (!ModelState.IsValid) return View(team);
-            if (team.Id == id) return NotFound();
+            if (team.Id != id) return NotFound();
             var existing = _teamService.GetTeamByIdAsync(team.Id);
             if (existing == null) return NotFound();
             var result = _teamService.UpdateTeamAsync(team);

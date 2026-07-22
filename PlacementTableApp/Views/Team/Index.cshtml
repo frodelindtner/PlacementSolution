@@ -33,6 +33,7 @@
                 <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@t.Id">Edit</a>
                 <a class="btn btn-sm btn-primary" asp-controller="Result" asp-action="AddResult" asp-route-teamId="@t.Id">Add Result</a>
                 <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-teamId="@t.Id">Delete</a>
+                <a class="btn btn-sm btn-primary" asp-controller="Result" asp-action="AddWin" asp-route-teamId="@t.Id">Add Win</a>
             </td>
         </tr>
     }

@@ -62,7 +62,7 @@ namespace PlacementTableApp.Services
         public async Task UpdateTeamAsync(TeamView team)
         {
             var enty = Helpers.Mappers.EntyModel.ConvertTeam(team);
-            _ = _teamRepository.UpdateAsync(enty);
+            await _teamRepository.UpdateAsync(enty);
         }
     }
 }
