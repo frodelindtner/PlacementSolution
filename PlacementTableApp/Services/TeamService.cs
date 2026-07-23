@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using PlacementTableApp.Domain.Models;
 using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Models.ViewModels;
-using PlacementTableApp.Repositories.Models;
 using PlacementTableApp.Services.Interfaces;
-using System.Linq;
 
 namespace PlacementTableApp.Services
 {

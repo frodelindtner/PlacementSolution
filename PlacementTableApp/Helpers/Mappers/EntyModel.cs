@@ -1,5 +1,5 @@
 ﻿using PlacementTableApp.Models.ViewModels;
-using PlacementTableApp.Repositories.Models;
+using PlacementTableApp.Domain.Models;
 
 namespace PlacementTableApp.Helpers.Mappers
 {

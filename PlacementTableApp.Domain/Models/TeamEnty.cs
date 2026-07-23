@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PlacementTableApp.Repositories.Models
+﻿namespace PlacementTableApp.Domain.Models
 {
     public class TeamEnty
     {

@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using PlacementTableApp.Models.ViewModels;
-using PlacementTableApp.Repositories.Models;
+﻿using PlacementTableApp.Models.ViewModels;
+using PlacementTableApp.Domain.Models;
 
 namespace PlacementTableApp.Helpers.Mappers
 {
