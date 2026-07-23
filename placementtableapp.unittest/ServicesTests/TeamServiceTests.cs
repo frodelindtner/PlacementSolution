@@ -8,7 +8,7 @@ using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Models.ViewModels;
 using Xunit;
 
-namespace placementtableapp.unittest
+namespace PlacementTableApp.unittest.ServicesTests
 {
     public class TeamServiceTests
     {

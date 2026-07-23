@@ -7,7 +7,7 @@ using PlacementTableApp.Services.Interfaces;
 using PlacementTableApp.Domain.Models;
 using Xunit;
 
-namespace placementtableapp.unittest
+namespace PlacementTableApp.unittest.ServicesTests
 {
     public class StandingServiceTests
     {
