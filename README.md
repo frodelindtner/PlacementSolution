@@ -35,3 +35,6 @@ You can see how data is filtered according to your selections
 From here you can use the "action" +wins to give wins to the teams - and thereby see that the standings are updated.
 
 You can see the new standings this way - each time a team has gotten a win or a loss
+
+# Unittest project is created with AI
+I used mostly Github Copilot Chat as agent to create unittest
