@@ -18,9 +18,10 @@ namespace PlacementTableApp.Infrastructure
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IReadOnlyList<T>> GetAllAsync()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
+            //return await _context.Set<T>().ToListAsync();
         }
 
         public async Task<T> AddAsync(T entity)

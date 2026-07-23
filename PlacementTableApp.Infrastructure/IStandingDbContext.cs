@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlacementTableApp.Domain.Models;
-using PlacementTableApp.Repositories.Models;
 
 namespace PlacementTableApp.Infrastructure
 {

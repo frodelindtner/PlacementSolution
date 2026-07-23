@@ -1,27 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
-using SQLitePCL;
 
 var builder = WebApplication.CreateBuilder(args);
-Batteries_V2.Init();
 
 builder.AddServiceDefaults();
 
 var pgConn = builder.Configuration.GetConnectionString("standingsdb") ?? builder.Configuration["standingsdb"];
-builder.Services.AddDbContext<StandingDbContext>(options => options.UseNpgsql(pgConn));
+builder.Services.AddInfrastructure(pgConn);
 
-builder.Services.AddInfrastructure();
-
-// allow resolving DbContext (base type) by returning the StandingContext
-builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<StandingDbContext>());
-
-// Register generic repository and TeamService for DI
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ITeamService, TeamService>();
@@ -37,11 +25,9 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -57,7 +43,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
 app.Run();
-
-
