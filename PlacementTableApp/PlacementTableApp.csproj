@@ -26,7 +26,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="10.0.10" />
     <PackageReference Include="Npgsql" Version="10.0.3" />
     <!-- Bundle package sets the SQLitePCL.raw provider automatically and should be initialized at startup -->
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.4" />
   </ItemGroup>
 
 </Project>
