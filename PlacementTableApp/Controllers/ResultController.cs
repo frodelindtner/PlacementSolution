@@ -23,7 +23,7 @@ namespace PlacementTableApp.Controllers
             ResultView view = Helpers.Mappers.ViewModel.ConvertResult(updResult);
             await _service.UpdateResultAsync(view);
 
-            return RedirectToAction(nameof(Index));
+            return Redirect("/Standing/");
         }
 
 
