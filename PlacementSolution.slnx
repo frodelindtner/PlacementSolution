@@ -3,6 +3,6 @@
   <Project Path="PlacementSolution.ServiceDefaults/PlacementSolution.ServiceDefaults.csproj" />
   <Project Path="PlacementTableApp.Domain/PlacementTableApp.Domain.csproj" Id="03a84a21-bdaf-4d0d-bcd3-dffc1584189c" />
   <Project Path="PlacementTableApp.Infrastructure/PlacementTableApp.Infrastructure.csproj" Id="9a229439-a607-4eb3-b32b-0cdb8d8707c6" />
-  <Project Path="placementtableapp.unittest/PlacementTableApp.unittest.csproj" />
+  <Project Path="placementtableapp.unittest/PlacementTableApp.unittest.csproj" DisplayName="PlacementTableApp.UnitTest" />
   <Project Path="PlacementTableApp/PlacementTableApp.csproj" />
 </Solution>
