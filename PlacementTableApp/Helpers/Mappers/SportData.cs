@@ -18,7 +18,7 @@ namespace PlacementTableApp.Helpers.Mappers
                 standingSportData.Division ?? string.Empty,
                 standingSportData.Wins,
                 standingSportData.Losses,
-                standingSportData.NightWins
+                standingSportData.NightWins ?? 0
             );
         }
 

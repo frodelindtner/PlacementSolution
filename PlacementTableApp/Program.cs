@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PlacementTableApp.Helpers.Mappers;
 using PlacementTableApp.Infrastructure;
 using PlacementTableApp.Services;
 using PlacementTableApp.Services.Interfaces;
@@ -15,6 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IResultService, ResultService>();
 builder.Services.AddScoped<IStandingService, StandingService>();
+builder.Services.AddScoped<ISportDataService, SportDataService>();
 
 var app = builder.Build();
 

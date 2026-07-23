@@ -11,6 +11,6 @@
         public string? Division { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
-        public int NightWins { get; set; }
+        public int? NightWins { get; set; }
     }
 }
