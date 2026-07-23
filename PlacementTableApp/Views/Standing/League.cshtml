@@ -35,7 +35,9 @@
                 <td>@s.Name</td>
                 <td>@s.City</td>
                 <td>@s.League</td>
-                <td>+sejre</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-controller="Result" asp-action="AddWin" asp-route-teamId="@s.TeamId">+sejrer</a>
+                </td>
                 <td>@s.Wins</td>
                 <td>@s.Losses</td>
                 <td>Resultater</td>
