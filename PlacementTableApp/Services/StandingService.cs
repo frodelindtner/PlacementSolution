@@ -25,20 +25,10 @@ namespace PlacementTableApp.Services
                 var result = _resultService.GetByTeamId(team.Id).Result;
                 if (result != null)
                 {
-                    var item = new StandingView()
-                    {
-                        Season = team.Season ?? string.Empty,
-                        City = team.City ?? string.Empty, 
-                        TeamId = team.Id,
-                        Division = team.Division ?? string.Empty,
-                        League = team.League ?? string.Empty,
-                        SeasonType = "N/A",
-                        Name = team.Name ?? string.Empty,
-                        Losses = result.Losses,
-                        Wins = result.Wins,
-                        NightWins = 0
-                    };
-
+                    var item = new StandingView(team.Season ?? string.Empty, "N/A", team.Id, team.City ?? string.Empty,
+                        team.Name ?? string.Empty, team.League ?? string.Empty, team.Division ?? string.Empty,
+                        result.Wins, result.Losses, 0);
+                    
                     standings.Add(item);
                 }
             }
